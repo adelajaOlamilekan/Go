@@ -66,7 +66,8 @@ func main(){
 	// all_book = append(all_book, new_book, new_book, new_book)
 
 	// fmt.Println(all_book)
-	for index, book := range books.GetAllBooks(){
+	catalog := books.GetCatalog()
+	for index, book := range books.GetAllBooks(catalog){
 		fmt.Println(index, books.BookToString(book))
 	}
 }
