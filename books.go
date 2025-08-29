@@ -13,15 +13,17 @@ type Book struct{
 	Id string
 }
 
-func BookToString(book Book) string{
+type Catalog map[string] Book
+
+func (book Book) String() string{
 	return fmt.Sprintf("%v by %v (copies: %v)", book.Title, book.Author, book.Copies)
 }
 
-func GetAllBooks(catalog map[string]Book)[]Book{
+func (catalog Catalog) GetAllBooks() []Book{
 	return slices.Collect(maps.Values(catalog))
 }
 
-func GetBook(catalog map[string]Book, book_id string)(Book, bool){
+func (catalog Catalog) GetBook(book_id string)(Book, bool){
 	// var bookFound bool = false
 
 	// for _, book := range catalog{
@@ -37,12 +39,12 @@ func GetBook(catalog map[string]Book, book_id string)(Book, bool){
 	// return Book{}
 }
 
-func AddBook(catalog map[string]Book, book Book){
+func (catalog Catalog) AddBook(book Book){
 	catalog[book.Id] = book
 }
 
-func GetCatalog()map[string] Book{
-	return map[string]Book{
+func GetCatalog() Catalog{
+	return Catalog{
 		"abcd": {
 			Title: "In the Company of Cheerful Ladies",
 			Author: "Alexander McCall Smith",
@@ -57,4 +59,16 @@ func GetCatalog()map[string] Book{
 		},
 	
 	}
+}
+
+func (book *Book) SetCopies(copies int) error {
+	// fmt.Println("before update, book.Copies = ", book.Copies)
+
+	if copies < 0{
+		return fmt.Errorf("negative number of copies: %d", copies)
+	}
+	book.Copies = copies
+	return nil
+	// fmt.Println("after update, book.Copies = at address", book.Copies)
+	// fmt.Println(*book)
 }

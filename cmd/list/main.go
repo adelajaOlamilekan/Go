@@ -67,8 +67,20 @@ func main(){
 
 	// fmt.Println(all_book)
 	catalog := books.GetCatalog()
-	for index, book := range books.GetAllBooks(catalog){
-		fmt.Println(index, books.BookToString(book))
+	for index, book := range catalog.GetAllBooks(){
+		fmt.Println(index, book)
 	}
+
+	// x := 10
+
+	// //Pointing y to x
+	// y := &x
+
+	// fmt.Println(*y, x)
+
+	// //Changing x via y 
+	// *y = 50
+	// x = 60
+	// fmt.Println(*y, x)
 }
 
